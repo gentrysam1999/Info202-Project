@@ -1,0 +1,39 @@
+@startuml
+skinparam style strictuml
+
+actor "User" as user
+participant "Main" as main <<main>>
+main++
+
+create "MainMenu" as menu <<menu>>
+main -> menu : <<construct>>
+
+
+user -> menu++ : click "View Product"
+create "ProductViewer" as viewer <<dialogue>>
+menu -> viewer++ : <<construct>>
+
+create "ProductCollectionsDAO" as dao <<dao>>
+viewer -> dao : <<construct>>
+viewer -> dao++ : getProducts()
+viewer <- dao-- : products
+
+create "productsModel : SimpleListModel" as listModel <<model>>
+viewer -> listModel : <<construct>>(products)
+
+viewer -> viewer-- : set products list model(productsModel)
+
+user -> viewer++ : view products
+viewer--
+
+user -> viewer++ : click "Close"
+viewer -> viewer-- : dispose()
+destroy viewer
+menu--
+
+user -> menu++ : click "Exit"
+menu -> menu : dispose()
+destroy menu
+
+
+@enduml

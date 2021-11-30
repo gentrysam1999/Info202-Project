@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dao.ProductCollectionsDAOTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-08-25T11:43:06" hostname="Sams-MBP-6" time="0.499">
+  <properties/>
+  <testcase name="testRemoveProduct()" classname="dao.ProductCollectionsDAOTest" time="0.355"/>
+  <testcase name="testSearchByID()" classname="dao.ProductCollectionsDAOTest" time="0.038"/>
+  <testcase name="testGetCategories()" classname="dao.ProductCollectionsDAOTest" time="0.017"/>
+  <testcase name="testSaveProduct()" classname="dao.ProductCollectionsDAOTest" time="0.024"/>
+  <testcase name="testGetProducts()" classname="dao.ProductCollectionsDAOTest" time="0.029"/>
+  <testcase name="testFilterByCategory()" classname="dao.ProductCollectionsDAOTest" time="0.027"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

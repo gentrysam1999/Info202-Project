@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25/09/2020, 4:05:58 am
+    Author     : samgentry
+*/
+
+a:hover {
+color: white;
+}
+
+a {
+text-decoration: none;
+color: black;
+}
+
+#menu a:link, a:visited, a:hover, a:active {
+background-color: grey;
+border-radius: 25px;
+padding: 10px 25px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+}
+
+h1{
+    background-color: grey;
+    padding: 10px 25px;
+    
+   
+}
+
+#welcome{
+    font-size: 120%;
+    text-decoration: underline;
+}
+
+button{
+    background-color: grey;
+    padding: 10px 25px;
+    color: black;
+    border-radius: 10px;
+}
+
+button:hover{
+    color: white;
+    
+}
+
+table{
+    border-style: inset;
+    border-radius: 5px;
+}
+
+#categories{
+    border-style: none;
+    border-radius: 0px;
+}

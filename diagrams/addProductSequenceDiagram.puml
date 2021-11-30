@@ -1,0 +1,53 @@
+@startuml
+skinparam style strictuml
+
+actor "User" as user
+participant "Main" as main <<main>>
+main++
+
+create "MainMenu" as menu <<menu>>
+main -> menu : <<construct>>
+
+
+user -> menu++ : click "Add New Product"
+create "ProductEditor" as editor <<dialogue>>
+menu -> editor++ : <<construct>>
+
+
+create "ProductCollectionsDAO" as dao <<dao>>
+editor -> dao : <<construct>>
+editor -> dao++ : getCategories()
+editor <- dao-- : categories
+
+
+create "listModel : SimpleListModel" as listModel <<model>>
+editor -> listModel++ : <<construct>>(categories)
+editor <- listModel-- : list of categories
+editor -> editor-- : set category combo box (listModel)
+
+
+user -> editor++ : enter product details
+editor--
+
+user -> editor++ : click "Save"
+create "product : Product" as product <<domain>>
+editor -> product : <<construct>>
+editor -> product++ : set product details
+product--
+editor -> dao++ : save product
+dao--
+
+editor -> editor : dispose()
+destroy editor
+
+user -> editor++ : click "Cancel"
+editor -> editor : dispose()
+destroy editor
+
+menu --
+
+user -> menu++ : click "Exit"
+menu -> menu : dispose()
+destroy menu
+
+@enduml

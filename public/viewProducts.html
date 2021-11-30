@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="ShoppingApp">
+    <head>
+        <title>View Products</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/ngStorage.js"></script>
+        <script src="js/shopping.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body ng-controller="ProductController as prodCtrl">
+        <div>
+            <div ng-include="'menu.html'"></div>
+        </div>
+        <h1>Products</h1>
+        <table id="categories">
+            <thead>
+                <tr>
+                    <th>
+                        <button ng-click="prodCtrl.viewAll()">View All</button>
+                    </th>
+                    <th ng-repeat="cat in prodCtrl.categories">
+                        <button 
+                             ng-click="prodCtrl.selectCategory(cat)">{{cat}}
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        
+        <table>
+            <tbody ng-controller="ShoppingCartController as cartCtrl">
+                <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price($)</th>
+                        <th>Quantity</th>
+                        <th>Buy</th>
+                </tr>
+                <tr data-ng-repeat="product in prodCtrl.products">
+                    <td>{{product.name}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.listPrice}}</td>
+                    <td>{{product.quantityInStock}}</td>
+                    <td>
+                    <button ng-click="cartCtrl.buyItem(product)">{{"Buy"}}
+                    </button>
+                    </td>
+                </tr>
+            </tbody>  
+        </table>
+    
+        
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="ShoppingApp">
+    <head>
+        <title>Quantity To Purchase</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/ngStorage.js"></script>
+        <script src="js/shopping.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <div>
+            <div ng-include="'menu.html'"></div>
+        </div>
+        <h1>How many do you want to buy?</h1>
+        <table>
+            <tbody ng-controller="ShoppingCartController as cartCtrl">
+                <tr>
+                    <td>ID: </td>
+                    <td>{{cartCtrl.selectedProduct.productID}}</td>
+                </tr>
+                <tr>
+                    <td>Name: </td>
+                    <td>{{cartCtrl.selectedProduct.name}}</td>
+                </tr>
+                <tr>
+                    <td>Description: </td>
+                    <td>{{cartCtrl.selectedProduct.description}}</td>
+                </tr>
+                <tr>
+                    <td>Price($): </td>
+                    <td>{{cartCtrl.selectedProduct.listPrice}}</td>
+                </tr>
+                <tr>
+                    <td>Quantity available: </td>
+                    <td>{{cartCtrl.selectedProduct.quantityInStock}}</td>
+                </tr>
+            </tbody>  
+        </table>
+        <br>
+        <form ng-controller="ShoppingCartController as cartCtrl">
+            <fieldset>
+                    <legend>Quantity to Buy</legend>
+                    <label for="quantity">How Many?</label>
+                    <input type="number" name ="quantity" id="quantity" ng-model= "quantity" required>
+                    <button type ="submit" ng-click="cartCtrl.addToCart(quantity)">Add To Cart</button>
+            </fieldset>
+        </form>
+    </body>
+</html>

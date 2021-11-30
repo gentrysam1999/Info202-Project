@@ -1,0 +1,87 @@
+@startuml
+' style tweaks to make the diagram a little more readable
+skinparam {
+	Style strictuml
+	RoundCorner 5
+        Database {
+		' the default border no longer matches the normal colours (bug?), so fix this
+		BorderColor #A80036
+	}
+	Sequence {
+		' make activations yellow too
+		LifeLineBackgroundColor #FDFDCD
+
+		' make stereotypes less ugly
+		Stereotype {
+			Font {
+				Size 11
+				Style plain
+			}
+		}
+	}
+}
+
+actor User as user
+participant "Main" as main
+participant "MainMenu" as menu << frame >>
+participant "Productviewer" as dialog << dialog >>
+participant "dao\n:ProductJdbcDAO" as dao <<Product DAO >>
+participant "productsModel\n:SimpleListModel" as model
+database "H2\nDatabase" as db
+
+
+create menu
+main -> menu : «construct»
+
+user -> menu++ : clicks 'View Products'
+
+create dialog
+menu -> dialog++ : «create»
+
+create dao
+dialog -> dao++ : «create»
+dialog -> dao : getProducts()
+dialog <- dao-- : products
+
+create model
+dialog -> model : <<construct>>(products)
+ 
+dialog -> dialog-- : set products list model(productsModel)
+ 
+user <-- dialog : view products
+
+user -> dialog++ : selects a product
+dialog--
+
+user -> dialog++ : clicks 'Delete' button
+dialog -> dialog : productList.getSelectedValue() : selectProduct
+
+
+alt jList selection not empty
+dialog->user: show confirm dialog
+
+alt clicks yes
+user -> dialog: clicks 'Yes' to confirm
+dialog->dao++ : deleteProduct(selectProduct)
+dao -> db++ : delete from PRODUCT \nwhere PRODUCT_ID = id
+dao--
+db--
+
+dialog -> dao++ : getProducts()
+dao -> db++ : select * from product
+return ResultSet
+dao->dao: reconstruct products\n from ResultSet
+dao --> dialog : products
+dao--
+
+create model
+dialog -> model : « construct »
+dialog -> model++ : updateItems(product)
+model--
+dialog -> dialog : productsList.setModel(model)
+    dao--
+end
+else jList selection empty
+    dialog->user: display warning dialog
+end
+@enduml

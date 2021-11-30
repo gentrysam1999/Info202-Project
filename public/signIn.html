@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <html ng-app="ShoppingApp">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/ngStorage.js"></script>
+        <script src="js/shopping.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body ng-controller="CustomerController as custCtrl">
+        <div>
+            <div ng-include="'menu.html'"></div>
+        </div>
+        <h1>Sign In</h1>
+        <p>{{custCtrl.signInMessage}}</p>        
+         <form ng-submit="custCtrl.signIn(username, password)">
+            <fieldset>
+                <legend>Account Details</legend>
+                <table>
+                    <tr>
+                        <td><label for="username">Username:</label></td>
+                        <td><input id="username" type="text" ng-model="username" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password:</label></td>
+                        <td><input id="password" type="password" ng-model="password" required></td>
+                    </tr>
+                </table>
+                <br>
+                <button class="standardButton" type="submit">Sign In</button>
+            </fieldset>
+        </form>
+        <p>If you don't have an account <a href="createAccount.html">create one here</a>.</p>
+    </body>
+</html>

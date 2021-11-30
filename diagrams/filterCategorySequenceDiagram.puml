@@ -1,0 +1,67 @@
+@startuml
+' style tweaks to make the diagram a little more readable
+skinparam {
+	Style strictuml
+	RoundCorner 5
+        Database {
+		' the default border no longer matches the normal colours (bug?), so fix this
+		BorderColor #A80036
+	}
+	Sequence {
+		' make activations yellow too
+		LifeLineBackgroundColor #FDFDCD
+
+		' make stereotypes less ugly
+		Stereotype {
+			Font {
+				Size 11
+				Style plain
+			}
+		}
+	}
+}
+
+actor User as user
+participant "Main" as main
+participant "MainMenu" as menu << frame >>
+participant "ProductViewer" as dialog << dialog >>
+participant "ProductJdbcDAO" as dao << DAO >>
+database "H2\nDatabase" as db
+participant "SimpleListModel\n:model" as model
+
+create menu
+main -> menu : «construct»
+
+user -> menu++ : clicks 'View Products'
+
+create dialog
+menu -> dialog++ : «create»
+
+create dao
+dialog -> dao++ : «create»
+dialog -> dao : getProducts()
+dialog <- dao-- : products
+
+create model
+dialog -> model : <<construct>>(products)
+ 
+dialog -> dialog-- : set products list model(productsModel)
+ 
+user <-- dialog : view products
+
+
+user -> dialog++ : select category from combobox
+dialog -> dao++ : filterByCategory(category)
+dao -> db++ : select * from PRODUCT\n where CATEGORY = category
+return ResultSet
+dao->dao: reconstruct products\n from ResultSet
+dao --> dialog: products
+dao--
+
+create model
+dialog -> model : « construct »
+dialog -> model++ : updateItems(products)
+model--
+dialog -> dialog : productsList.setModel(model)
+
+@enduml

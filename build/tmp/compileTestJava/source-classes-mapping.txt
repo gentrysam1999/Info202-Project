@@ -1,0 +1,4 @@
+dao/ProductCollectionsDAOTest.java
+ dao.ProductCollectionsDAOTest
+gui/ProductEditorDialogTest.java
+ gui.ProductEditorDialogTest
